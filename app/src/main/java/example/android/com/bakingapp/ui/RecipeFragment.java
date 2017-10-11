@@ -1,6 +1,7 @@
 
 package example.android.com.bakingapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,7 +23,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static example.android.com.bakingapp.ui.RecipeActivity.ALL_RECIPES;
+import static example.android.com.bakingapp.util.MyConstants.ALL_RECIPES;
+import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
+
 
 /**
  * Created by Deniz Kalem on 06.10.17.
@@ -30,6 +33,8 @@ import static example.android.com.bakingapp.ui.RecipeActivity.ALL_RECIPES;
 
 public class RecipeFragment extends Fragment
 {
+  RecipeAdapter recipesAdapter;
+  public static boolean isTablet;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -39,13 +44,14 @@ public class RecipeFragment extends Fragment
     View rootView = inflater.inflate(R.layout.recipe_fragment_body_part, container, false);
 
     recyclerView = (RecyclerView) rootView.findViewById(R.id.recipe_recycler);
-    RecipeAdapter recipesAdapter = new RecipeAdapter(this::click);
+    recipesAdapter = new RecipeAdapter(getActivity(), this::click);
     recyclerView.setAdapter(recipesAdapter);
 
+    isTablet = getResources().getBoolean(R.bool.isTablet);
 
-    if(rootView.getTag() != null && rootView.getTag().equals("phone-land"))
+    if(RecipeFragment.isTablet)
     {
-      GridLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 4);
+      GridLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
       recyclerView.setLayoutManager(mLayoutManager);
     } else
     {
@@ -55,14 +61,6 @@ public class RecipeFragment extends Fragment
 
     RecipeAPI recipeAPI = RetrofitBuilder.Retrieve();
     Call<ArrayList<Recipe>> recipe = recipeAPI.getRecipe();
-
-//    SimpleIdlingResource idlingResource = (SimpleIdlingResource) ((RecipeActivity) getActivity()).getIdlingResource();
-//
-//    if(idlingResource != null)
-//    {
-//      idlingResource.setIdleState(false);
-//    }
-
 
     recipe.enqueue(new Callback<ArrayList<Recipe>>()
     {
@@ -78,11 +76,6 @@ public class RecipeFragment extends Fragment
         recipesBundle.putParcelableArrayList(ALL_RECIPES, recipes);
 
         recipesAdapter.setRecipes(recipes, getContext());
-//        if(idlingResource != null)
-//        {
-//          idlingResource.setIdleState(true);
-//        }
-
       }
 
       @Override
@@ -97,8 +90,12 @@ public class RecipeFragment extends Fragment
 
   public void click(Integer i)
   {
+    Bundle bundle = new Bundle();
+    bundle.putParcelable(SELECTED_RECIPE, recipesAdapter.getSelectedRecipe(i));
 
+    Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
+    intent.putExtras(bundle);
+    startActivity(intent);
   }
-
 
 }

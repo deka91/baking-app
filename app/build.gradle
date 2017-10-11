@@ -41,6 +41,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.google.android.exoplayer:exoplayer:r2.3.0'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
