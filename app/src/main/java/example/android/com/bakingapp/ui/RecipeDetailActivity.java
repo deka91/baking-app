@@ -1,5 +1,7 @@
 package example.android.com.bakingapp.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +28,17 @@ public class RecipeDetailActivity extends AppCompatActivity
   private Recipe recipe;
   private FragmentManager fragmentManager;
   private RecipeStepFragment recipeStepFragment;
+
+
+  private static final String BUNDLE_RECIPE_DATA =
+    "com.twisstosin.udacity_baking.recipe_data";
+
+  public static Intent newIntent(Context packageContext, Recipe recipe)
+  {
+    Intent intent = new Intent(packageContext, RecipeDetailActivity.class);
+    intent.putExtra(BUNDLE_RECIPE_DATA, recipe);
+    return intent;
+  }
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
@@ -78,7 +91,10 @@ public class RecipeDetailActivity extends AppCompatActivity
     {
       getSupportActionBar().setHomeButtonEnabled(true);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      getSupportActionBar().setTitle(recipe.getName());
+      if(recipe != null)
+      {
+        getSupportActionBar().setTitle(recipe.getName());
+      }
     }
 
     toolbar.setNavigationOnClickListener(new View.OnClickListener()

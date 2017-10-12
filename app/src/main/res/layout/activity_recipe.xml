@@ -10,9 +10,9 @@
   <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:textColor="@android:color/holo_orange_light"
-            android:text="Choose your desired meal:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            android:text="Choose your desired recipe:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorAccent"/>
 
   <fragment android:id="@+id/recipe_fragment_body_part"
             android:name="example.android.com.bakingapp.ui.RecipeFragment"

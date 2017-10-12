@@ -19,6 +19,7 @@ import example.android.com.bakingapp.R;
 import example.android.com.bakingapp.adapter.RecipeDetailAdapter;
 import example.android.com.bakingapp.model.Ingredient;
 import example.android.com.bakingapp.model.Recipe;
+import example.android.com.bakingapp.widget.BakingWidgetService;
 
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_STEP;
@@ -49,7 +50,12 @@ public class RecipeDetailFragment extends Fragment
       recipe = getArguments().getParcelable(SELECTED_RECIPE);
     }
 
-    List<Ingredient> ingredients = recipe.getIngredients();
+    List<Ingredient> ingredients = new ArrayList<>();
+
+    if(recipe != null)
+    {
+      ingredients.addAll(recipe.getIngredients());
+    }
 
     View rootView = inflater.inflate(R.layout.recipe_detail_fragment_body_part, container, false);
     textView = (TextView) rootView.findViewById(R.id.recipe_detail_text);
@@ -75,8 +81,7 @@ public class RecipeDetailFragment extends Fragment
     recyclerView.setAdapter(recipeDetailAdapter);
     recipeDetailAdapter.setMasterRecipeData(recipe);
 
-    //update widget
-//    UpdateBakingService.startBakingService(getContext(), recipeIngredientsForWidgets);
+    BakingWidgetService.startActionUpdateRecipe(getActivity(), recipe);
 
     return rootView;
   }

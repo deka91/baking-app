@@ -94,6 +94,7 @@ public class RecipeFragment extends Fragment
     bundle.putParcelable(SELECTED_RECIPE, recipesAdapter.getSelectedRecipe(i));
 
     Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
+//    BakingWidgetService.startActionUpdateRecipe(getActivity(), recipesAdapter.getSelectedRecipe(i));
     intent.putExtras(bundle);
     startActivity(intent);
   }
