@@ -1,6 +1,5 @@
 package example.android.com.bakingapp.ui;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,9 +35,9 @@ import example.android.com.bakingapp.R;
 import example.android.com.bakingapp.model.Recipe;
 import example.android.com.bakingapp.model.Step;
 
+import static example.android.com.bakingapp.util.MyConstants.RECIPE_STEP;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_STEP;
-import static example.android.com.bakingapp.util.MyConstants.RECIPE_STEP;
 
 /**
  * Created by Deniz Kalem on 06.10.17.
@@ -110,14 +109,14 @@ public class RecipeStepFragment extends Fragment
       public void onClick(View view)
       {
         position = step.getId() - 1;
-        if(position >= 0 && steps.get(position).getId() >= 0)
+        if(position >= 0)
         {
           if(simpleExoPlayer != null)
           {
             simpleExoPlayer.stop();
           }
 
-          click(position);
+          clickNavigationButton(position);
         }
       }
     });
@@ -133,7 +132,7 @@ public class RecipeStepFragment extends Fragment
           {
             simpleExoPlayer.stop();
           }
-          click(position);
+          clickNavigationButton(position);
         }
       }
     });
@@ -162,7 +161,6 @@ public class RecipeStepFragment extends Fragment
     releasePlayer();
   }
 
-
   private void initializePlayer(Uri mediaUri)
   {
     if(simpleExoPlayer == null)
@@ -182,11 +180,6 @@ public class RecipeStepFragment extends Fragment
     }
   }
 
-  public boolean isInLandscapeMode(Context context)
-  {
-    return (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
-  }
-
   @Override
   public void onSaveInstanceState(Bundle currentState)
   {
@@ -204,7 +197,7 @@ public class RecipeStepFragment extends Fragment
     }
   }
 
-  public void click(Integer i)
+  public void clickNavigationButton(Integer i)
   {
     RecipeStepFragment fragment = new RecipeStepFragment();
     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

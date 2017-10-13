@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ public class RecipeFragment extends Fragment
     View rootView = inflater.inflate(R.layout.recipe_fragment_body_part, container, false);
 
     recyclerView = (RecyclerView) rootView.findViewById(R.id.recipe_recycler);
-    recipesAdapter = new RecipeAdapter(getActivity(), this::click);
+    recipesAdapter = new RecipeAdapter(getActivity(), this::clickRecipe);
     recyclerView.setAdapter(recipesAdapter);
 
     isTablet = getResources().getBoolean(R.bool.isTablet);
@@ -67,10 +66,10 @@ public class RecipeFragment extends Fragment
       recipesAdapter.setRecipes(recipes, getContext());
     } else
     {
-      ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
-      mProgressDialog.setIndeterminate(true);
-      mProgressDialog.setMessage(getString(R.string.loading_dialog));
-      mProgressDialog.show();
+      ProgressDialog progressDialog = new ProgressDialog(getActivity());
+      progressDialog.setIndeterminate(true);
+      progressDialog.setMessage(getString(R.string.loading_dialog));
+      progressDialog.show();
 
       RecipeApi recipeApi = RetrofitBuilder.getData();
       Call<ArrayList<Recipe>> recipe = recipeApi.getRecipe();
@@ -80,9 +79,9 @@ public class RecipeFragment extends Fragment
         @Override
         public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response)
         {
-          if(mProgressDialog.isShowing())
+          if(progressDialog.isShowing())
           {
-            mProgressDialog.dismiss();
+            progressDialog.dismiss();
           }
 
           recipes = response.body();
@@ -97,11 +96,10 @@ public class RecipeFragment extends Fragment
         @Override
         public void onFailure(Call<ArrayList<Recipe>> call, Throwable t)
         {
-          if(mProgressDialog.isShowing())
+          if(progressDialog.isShowing())
           {
-            mProgressDialog.dismiss();
+            progressDialog.dismiss();
           }
-          Log.v("http fail: ", t.getMessage());
         }
       });
     }
@@ -110,7 +108,7 @@ public class RecipeFragment extends Fragment
     return rootView;
   }
 
-  public void click(Integer i)
+  public void clickRecipe(Integer i)
   {
     Bundle bundle = new Bundle();
     bundle.putParcelable(SELECTED_RECIPE, recipesAdapter.getSelectedRecipe(i));

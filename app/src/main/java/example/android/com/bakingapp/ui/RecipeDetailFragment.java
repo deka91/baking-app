@@ -55,19 +55,18 @@ public class RecipeDetailFragment extends Fragment
     View rootView = inflater.inflate(R.layout.recipe_detail_fragment_body_part, container, false);
     textView = (TextView) rootView.findViewById(R.id.tv_ingredients);
 
-
     for(Ingredient ingredient : ingredients)
     {
-      textView.append("\u2022 " + ingredient.getIngredient() + "\n");
-      textView.append("\t\t\t Quantity: " + ingredient.getQuantity().toString() + "\n");
-      textView.append("\t\t\t Measure: " + ingredient.getMeasure() + "\n\n");
+      textView.append(ingredient.getIngredient() + "\n");
+      textView.append("Quantity: " + ingredient.getQuantity().toString() + "\n");
+      textView.append("Measure: " + ingredient.getMeasure() + "\n\n");
     }
 
     recyclerView = (RecyclerView) rootView.findViewById(R.id.recipe_detail_recycler);
-    LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-    recyclerView.setLayoutManager(mLayoutManager);
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+    recyclerView.setLayoutManager(linearLayoutManager);
 
-    recipeDetailAdapter = new RecipeDetailAdapter(this::click);
+    recipeDetailAdapter = new RecipeDetailAdapter(this::clickStep);
     recyclerView.setAdapter(recipeDetailAdapter);
     recipeDetailAdapter.setMasterRecipeData(recipe);
 
@@ -77,7 +76,7 @@ public class RecipeDetailFragment extends Fragment
   }
 
 
-  public void click(Integer i)
+  public void clickStep(Integer i)
   {
     RecipeStepFragment fragment = new RecipeStepFragment();
     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -95,7 +94,7 @@ public class RecipeDetailFragment extends Fragment
     } else
     {
       fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment, "test").addToBackStack(RECIPE_STEP)
+        .replace(R.id.fragment_container, fragment, "RecipeStepFragment").addToBackStack(RECIPE_STEP)
         .commit();
     }
   }

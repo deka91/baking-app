@@ -40,7 +40,6 @@ public class RecipeDetailActivity extends AppCompatActivity
 
     if(savedInstanceState == null)
     {
-
       Bundle bundle = getIntent().getExtras();
 
       recipe = bundle.getParcelable(SELECTED_RECIPE);
@@ -66,10 +65,9 @@ public class RecipeDetailActivity extends AppCompatActivity
     }
 
     ButterKnife.bind(this);
-
     setSupportActionBar(toolbar);
 
-    recipeStepFragment = (RecipeStepFragment) fragmentManager.findFragmentByTag("test");
+    recipeStepFragment = (RecipeStepFragment) fragmentManager.findFragmentByTag("RecipeStepFragment");
 
     if(recipeStepFragment != null && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
     {
