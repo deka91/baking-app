@@ -18,17 +18,17 @@ public class BakingWidgetProvider extends AppWidgetProvider
                               int appWidgetId, Recipe recipe)
   {
     RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_widget);
-    views.removeAllViews(R.id.ll_recipe_widget_ingredient_list);
-    views.setTextViewText(R.id.recipe_widget_title, recipe.getName());
+    views.removeAllViews(R.id.layout_ingredients);
+    views.setTextViewText(R.id.tv_widget_title, recipe.getName());
 
     for(Ingredient ingredient : recipe.getIngredients())
     {
       RemoteViews rvIngredient = new RemoteViews(context.getPackageName(),
         R.layout.baking_widget_list_item);
-      rvIngredient.setTextViewText(R.id.tv_recipe_widget_ingredient_item,
+      rvIngredient.setTextViewText(R.id.tv_ingredient_item,
         String.valueOf(ingredient.getQuantity()) +
           String.valueOf(ingredient.getMeasure()) + " " + ingredient.getIngredient());
-      views.addView(R.id.ll_recipe_widget_ingredient_list, rvIngredient);
+      views.addView(R.id.layout_ingredients, rvIngredient);
     }
 
     appWidgetManager.updateAppWidget(appWidgetId, views);

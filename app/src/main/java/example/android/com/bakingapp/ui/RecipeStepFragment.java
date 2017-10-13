@@ -98,14 +98,14 @@ public class RecipeStepFragment extends Fragment
 
       initializePlayer(Uri.parse(step.getVideoURL()));
 
-      if(rootView.findViewWithTag("sw600dp-land-recipe_step_detail") != null)
-      {
-        getActivity().findViewById(R.id.fragment_container2).setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
-        simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
-      } else if(isInLandscapeMode(getContext()))
-      {
-        textView.setVisibility(View.GONE);
-      }
+//      if(rootView.findViewWithTag("sw600dp-land-recipe_step_detail") != null)
+//      {
+////        getActivity().findViewById(R.id.fragment_container2).setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
+////        simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
+//      } else if(isInLandscapeMode(getContext()))
+//      {
+//        textView.setVisibility(View.GONE);
+//      }
     } else
     {
       simpleExoPlayer = null;

@@ -53,7 +53,7 @@ public class RecipeDetailFragment extends Fragment
     List<Ingredient> ingredients = recipe.getIngredients();
 
     View rootView = inflater.inflate(R.layout.recipe_detail_fragment_body_part, container, false);
-    textView = (TextView) rootView.findViewById(R.id.recipe_detail_text);
+    textView = (TextView) rootView.findViewById(R.id.tv_ingredients);
 
 
     for(Ingredient ingredient : ingredients)

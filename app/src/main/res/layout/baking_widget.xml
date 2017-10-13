@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/recipe_widget_holder"
+<LinearLayout android:id="@+id/widget_baking"
               xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
@@ -8,7 +8,7 @@
               android:orientation="vertical"
               android:padding="8dp">
   <TextView
-    android:id="@+id/recipe_widget_title"
+    android:id="@+id/tv_widget_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textColor="@color/colorAccent"
@@ -16,7 +16,7 @@
   />
 
   <LinearLayout
-    android:id="@+id/ll_recipe_widget_ingredient_list"
+    android:id="@+id/layout_ingredients"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"

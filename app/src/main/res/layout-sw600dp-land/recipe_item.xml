@@ -23,7 +23,9 @@
       android:layout_height="100dp"
       android:gravity="center_vertical"
       android:textAlignment="center"
-      android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+      android:textAppearance="@style/TextAppearance.AppCompat.Large"
+      android:textColor="@color/colorAccent"
+    />
 
     <ImageView
       android:id="@+id/iv_image"

@@ -3,5 +3,7 @@
   <string name="appwidget_text">Choose your recipe in the app</string>
   <string name="recipe_header">Choose your desired recipe:</string>
   <string name="add_widget">Add widget</string>
-  <string name="loading_dialog">"Baking..."</string>
+  <string name="loading_dialog">Baking...</string>
+  <string name="header_ingredients">Ingredients:</string>
+  <string name="header_steps">Steps:</string>
 </resources>

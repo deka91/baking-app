@@ -72,7 +72,7 @@ public class RecipeFragment extends Fragment
       mProgressDialog.setMessage(getString(R.string.loading_dialog));
       mProgressDialog.show();
 
-      RecipeApi recipeApi = RetrofitBuilder.Retrieve();
+      RecipeApi recipeApi = RetrofitBuilder.getData();
       Call<ArrayList<Recipe>> recipe = recipeApi.getRecipe();
 
       recipe.enqueue(new Callback<ArrayList<Recipe>>()

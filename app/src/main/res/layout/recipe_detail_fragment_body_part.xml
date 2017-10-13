@@ -16,7 +16,7 @@
               android:layout_marginBottom="8dp"
               android:background="@color/colorPrimaryDark"
               android:gravity="center"
-              android:text="Ingredients:"
+              android:text="@string/header_ingredients"
               android:textAppearance="@style/TextAppearance.AppCompat.Headline"
               android:textColor="@color/colorAccent"/>
 
@@ -27,7 +27,7 @@
     >
 
       <TextView
-        android:id="@+id/recipe_detail_text"
+        android:id="@+id/tv_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
@@ -39,7 +39,7 @@
               android:layout_marginTop="16dp"
               android:background="@color/colorPrimaryDark"
               android:gravity="center"
-              android:text="Steps:"
+              android:text="@string/header_steps"
               android:textAppearance="@style/TextAppearance.AppCompat.Headline"
               android:textColor="@color/colorAccent"/>
 

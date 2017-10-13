@@ -107,17 +107,14 @@ public class RecipeDetailActivity extends AppCompatActivity
     {
       if(fragmentManager.getBackStackEntryCount() > 1)
       {
-        //go back to "Recipe Detail" screen
         fragmentManager.popBackStack(RECIPE_DETAIL, 0);
       } else if(fragmentManager.getBackStackEntryCount() > 0)
       {
-        //go back to "Recipe" screen
         finish();
       }
 
     } else
     {
-      //go back to "Recipe" screen
       finish();
     }
   }
