@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="16dp">
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+>
 
-  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:text="Ingredients:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/colorAccent"/>
-
-  <ScrollView
-    style="@android:style/Widget.Holo.ScrollView"
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-  >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <TextView
-      android:id="@+id/recipe_detail_text"
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:layout_marginBottom="8dp"
+              android:background="@color/colorPrimaryDark"
+              android:gravity="center"
+              android:text="Ingredients:"
+              android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+              android:textColor="@color/colorAccent"/>
+
+    <ScrollView
+      style="@android:style/Widget.Holo.ScrollView"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+    >
+
+      <TextView
+        android:id="@+id/recipe_detail_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      />
+    </ScrollView>
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:layout_marginBottom="8dp"
+              android:layout_marginTop="16dp"
+              android:background="@color/colorPrimaryDark"
+              android:gravity="center"
+              android:text="Steps:"
+              android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+              android:textColor="@color/colorAccent"/>
+
+    <android.support.v7.widget.RecyclerView
+
+      android:id="@+id/recipe_detail_recycler"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
     />
-  </ScrollView>
 
-  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:text="Steps:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/colorAccent"/>
+  </LinearLayout>
 
-  <android.support.v7.widget.RecyclerView
-
-    android:id="@+id/recipe_detail_recycler"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-  />
-
-</LinearLayout>
-
-
+</ScrollView>

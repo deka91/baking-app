@@ -1,6 +1,7 @@
 
 package example.android.com.bakingapp.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ public class RecipeFragment extends Fragment
 {
   RecipeAdapter recipesAdapter;
   public static boolean isTablet;
+  private ArrayList<Recipe> recipes;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -59,28 +61,51 @@ public class RecipeFragment extends Fragment
       recyclerView.setLayoutManager(mLayoutManager);
     }
 
-    RecipeApi recipeApi = RetrofitBuilder.Retrieve();
-    Call<ArrayList<Recipe>> recipe = recipeApi.getRecipe();
-
-    recipe.enqueue(new Callback<ArrayList<Recipe>>()
+    if(savedInstanceState != null && savedInstanceState.getParcelableArrayList(ALL_RECIPES) != null)
     {
-      @Override
-      public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response)
+      recipes = savedInstanceState.getParcelableArrayList(ALL_RECIPES);
+      recipesAdapter.setRecipes(recipes, getContext());
+    } else
+    {
+      ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+      mProgressDialog.setIndeterminate(true);
+      mProgressDialog.setMessage(getString(R.string.loading_dialog));
+      mProgressDialog.show();
+
+      RecipeApi recipeApi = RetrofitBuilder.Retrieve();
+      Call<ArrayList<Recipe>> recipe = recipeApi.getRecipe();
+
+      recipe.enqueue(new Callback<ArrayList<Recipe>>()
       {
-        ArrayList<Recipe> recipes = response.body();
+        @Override
+        public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response)
+        {
+          if(mProgressDialog.isShowing())
+          {
+            mProgressDialog.dismiss();
+          }
 
-        Bundle recipesBundle = new Bundle();
-        recipesBundle.putParcelableArrayList(ALL_RECIPES, recipes);
+          recipes = response.body();
 
-        recipesAdapter.setRecipes(recipes, getContext());
-      }
+          Bundle recipesBundle = new Bundle();
+          recipesBundle.putParcelableArrayList(ALL_RECIPES, recipes);
 
-      @Override
-      public void onFailure(Call<ArrayList<Recipe>> call, Throwable t)
-      {
-        Log.v("http fail: ", t.getMessage());
-      }
-    });
+          recipesAdapter.setRecipes(recipes, getContext());
+        }
+
+
+        @Override
+        public void onFailure(Call<ArrayList<Recipe>> call, Throwable t)
+        {
+          if(mProgressDialog.isShowing())
+          {
+            mProgressDialog.dismiss();
+          }
+          Log.v("http fail: ", t.getMessage());
+        }
+      });
+    }
+
 
     return rootView;
   }
@@ -95,4 +120,10 @@ public class RecipeFragment extends Fragment
     startActivity(intent);
   }
 
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putParcelableArrayList(ALL_RECIPES, recipes);
+  }
 }
