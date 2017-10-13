@@ -31,8 +31,6 @@ import static org.hamcrest.core.Is.is;
 @RunWith(AndroidJUnit4.class)
 public class RecipeActivityBasicTest
 {
-  public static final String RECIPE_NAME = "Cheesecake";
-
   @Rule
   public ActivityTestRule<RecipeActivity> activityTestRule = new ActivityTestRule<RecipeActivity>(RecipeActivity.class);
 
@@ -49,13 +47,13 @@ public class RecipeActivityBasicTest
 
     onView(withId(R.id.recipe_recycler))
       .perform(RecyclerViewActions.actionOnItem(
-        hasDescendant(withText(RECIPE_NAME)), click()));
+        hasDescendant(withText("Cheesecake")), click()));
 
-    matchToolbarTitle(RECIPE_NAME);
+    equalsToolbarTitle("Cheesecake");
   }
 
 
-  private static ViewInteraction matchToolbarTitle(CharSequence title)
+  private static ViewInteraction equalsToolbarTitle(CharSequence title)
   {
     return onView(isAssignableFrom(Toolbar.class))
       .check(matches(withToolbarTitle(is(title))));
