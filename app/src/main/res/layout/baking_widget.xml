@@ -6,7 +6,7 @@
               android:layout_height="match_parent"
               android:background="@color/colorPrimary"
               android:orientation="vertical"
-              android:padding="8dp">
+              android:padding="@dimen/padding_normal">
   <TextView
     android:id="@+id/tv_widget_title"
     android:layout_width="wrap_content"

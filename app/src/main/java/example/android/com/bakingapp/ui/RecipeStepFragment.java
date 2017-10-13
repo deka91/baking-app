@@ -88,24 +88,14 @@ public class RecipeStepFragment extends Fragment
     if(!imageUrl.isEmpty())
     {
       Uri builtUri = Uri.parse(imageUrl).buildUpon().build();
-      ImageView thumbImage = (ImageView) rootView.findViewById(R.id.thumbImage);
+      ImageView thumbImage = (ImageView) rootView.findViewById(R.id.iv_thumb);
       thumbImage.setVisibility(View.VISIBLE);
       Picasso.with(getContext()).load(builtUri).into(thumbImage);
     }
 
     if(!videoURL.isEmpty())
     {
-
       initializePlayer(Uri.parse(step.getVideoURL()));
-
-//      if(rootView.findViewWithTag("sw600dp-land-recipe_step_detail") != null)
-//      {
-////        getActivity().findViewById(R.id.fragment_container2).setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
-////        simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
-//      } else if(isInLandscapeMode(getContext()))
-//      {
-//        textView.setVisibility(View.GONE);
-//      }
     } else
     {
       simpleExoPlayer = null;

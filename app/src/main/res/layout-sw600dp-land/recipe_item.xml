@@ -20,7 +20,7 @@
     <TextView
       android:id="@+id/tv_text"
       android:layout_width="match_parent"
-      android:layout_height="100dp"
+      android:layout_height="@dimen/cardview_height"
       android:gravity="center_vertical"
       android:textAlignment="center"
       android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -33,7 +33,7 @@
       android:layout_height="match_parent"
       android:layout_gravity="start"
       android:elevation="1dp"
-      android:paddingRight="15dp"/>
+      android:paddingRight="@dimen/padding_large"/>
 
   </RelativeLayout>
 

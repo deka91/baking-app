@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:padding="16dp"
+              android:padding="@dimen/padding_large"
 >
 
   <LinearLayout
@@ -18,12 +18,12 @@
     />
 
     <ImageView
-      android:id="@+id/thumbImage"
+      android:id="@+id/iv_thumb"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="left"
       android:elevation="1dp"
-      android:paddingRight="15dp"/>
+      android:paddingRight="@dimen/padding_large"/>
 
     <TextView
       android:id="@+id/recipe_step_detail_text"
@@ -31,7 +31,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="5dp"
       android:textColor="@android:color/black"
-      android:textSize="20sp"
+      android:textSize="@dimen/text_size"
     />
 
   </LinearLayout>

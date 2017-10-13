@@ -5,19 +5,19 @@
               android:layout_height="match_parent"
               android:fitsSystemWindows="true"
               android:orientation="vertical"
-              android:padding="16dp">
+              android:padding="@dimen/padding_large">
 
   <com.google.android.exoplayer2.ui.SimpleExoPlayerView
     android:id="@+id/playerView"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="@dimen/video_height"
     android:visibility="gone"
   />
 
   <ImageView
-    android:id="@+id/thumbImage"
+    android:id="@+id/iv_thumb"
     android:layout_width="wrap_content"
-    android:layout_height="250dp"
+    android:layout_height="@dimen/image_height"
     android:layout_gravity="center"
     android:visibility="gone"
   />
@@ -27,7 +27,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/margin_normal"
     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
     android:textColor="@android:color/black"/>
 
