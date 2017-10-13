@@ -38,7 +38,7 @@ import example.android.com.bakingapp.model.Step;
 
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_STEP;
-import static example.android.com.bakingapp.util.MyConstants.STACK_RECIPE_STEP_DETAIL;
+import static example.android.com.bakingapp.util.MyConstants.RECIPE_STEP;
 
 /**
  * Created by Deniz Kalem on 06.10.17.
@@ -72,7 +72,6 @@ public class RecipeStepFragment extends Fragment
     if(step == null)
     {
       Recipe recipe = getArguments().getParcelable(SELECTED_RECIPE);
-//      Recipe recipe = savedInstanceState.getParcelable(SELECTED_RECIPE);
       steps = (ArrayList<Step>) recipe.getSteps();
       step = steps.get(0);
     }
@@ -228,12 +227,12 @@ public class RecipeStepFragment extends Fragment
     if(RecipeFragment.isTablet && getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
     {
       fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container2, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+        .replace(R.id.fragment_container2, fragment).addToBackStack(RECIPE_STEP)
         .commit();
     } else
     {
       fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+        .replace(R.id.fragment_container, fragment).addToBackStack(RECIPE_STEP)
         .commit();
     }
   }

@@ -23,7 +23,7 @@ import example.android.com.bakingapp.widget.BakingWidgetService;
 
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_STEP;
-import static example.android.com.bakingapp.util.MyConstants.STACK_RECIPE_STEP_DETAIL;
+import static example.android.com.bakingapp.util.MyConstants.RECIPE_STEP;
 
 /**
  * Created by Deniz Kalem on 05.10.17.
@@ -50,28 +50,23 @@ public class RecipeDetailFragment extends Fragment
       recipe = getArguments().getParcelable(SELECTED_RECIPE);
     }
 
-    List<Ingredient> ingredients = new ArrayList<>();
-
-    if(recipe != null)
-    {
-      ingredients.addAll(recipe.getIngredients());
-    }
+    List<Ingredient> ingredients = recipe.getIngredients();
 
     View rootView = inflater.inflate(R.layout.recipe_detail_fragment_body_part, container, false);
     textView = (TextView) rootView.findViewById(R.id.recipe_detail_text);
 
     ArrayList<String> recipeIngredientsForWidgets = new ArrayList<>();
 
-    ingredients.forEach((a) ->
+    for(Ingredient ingredient : ingredients)
     {
-      textView.append("\u2022 " + a.getIngredient() + "\n");
-      textView.append("\t\t\t Quantity: " + a.getQuantity().toString() + "\n");
-      textView.append("\t\t\t Measure: " + a.getMeasure() + "\n\n");
+      textView.append("\u2022 " + ingredient.getIngredient() + "\n");
+      textView.append("\t\t\t Quantity: " + ingredient.getQuantity().toString() + "\n");
+      textView.append("\t\t\t Measure: " + ingredient.getMeasure() + "\n\n");
 
-      recipeIngredientsForWidgets.add(a.getIngredient() + "\n" +
-        "Quantity: " + a.getQuantity().toString() + "\n" +
-        "Measure: " + a.getMeasure() + "\n");
-    });
+      recipeIngredientsForWidgets.add(ingredient.getIngredient() + "\n" +
+        "Quantity: " + ingredient.getQuantity().toString() + "\n" +
+        "Measure: " + ingredient.getMeasure() + "\n");
+    }
 
     recyclerView = (RecyclerView) rootView.findViewById(R.id.recipe_detail_recycler);
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -100,12 +95,12 @@ public class RecipeDetailFragment extends Fragment
     if(RecipeFragment.isTablet && getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
     {
       fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container2, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+        .replace(R.id.fragment_container2, fragment).addToBackStack(RECIPE_STEP)
         .commit();
     } else
     {
       fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment, "test").addToBackStack(STACK_RECIPE_STEP_DETAIL)
+        .replace(R.id.fragment_container, fragment, "test").addToBackStack(RECIPE_STEP)
         .commit();
     }
   }

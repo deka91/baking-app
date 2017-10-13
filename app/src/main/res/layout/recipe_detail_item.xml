@@ -5,13 +5,14 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_gravity="center_horizontal"
-  android:layout_margin="5dp"
+  android:layout_margin="4dp"
   card_view:cardCornerRadius="4dp">
 
   <RelativeLayout
     android:id="@+id/layout_recipe_detail_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
     android:gravity="center_horizontal">
 
     <TextView
@@ -21,8 +22,8 @@
       android:gravity="start"
       android:padding="16dp"
       android:textAlignment="textStart"
-      android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
+      android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+      android:textColor="@color/colorAccent"/>
   </RelativeLayout>
 
 

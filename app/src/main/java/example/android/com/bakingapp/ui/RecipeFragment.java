@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import example.android.com.bakingapp.R;
 import example.android.com.bakingapp.adapter.RecipeAdapter;
 import example.android.com.bakingapp.model.Recipe;
-import example.android.com.bakingapp.retrofit.RecipeAPI;
+import example.android.com.bakingapp.retrofit.RecipeApi;
 import example.android.com.bakingapp.retrofit.RetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,17 +59,14 @@ public class RecipeFragment extends Fragment
       recyclerView.setLayoutManager(mLayoutManager);
     }
 
-    RecipeAPI recipeAPI = RetrofitBuilder.Retrieve();
-    Call<ArrayList<Recipe>> recipe = recipeAPI.getRecipe();
+    RecipeApi recipeApi = RetrofitBuilder.Retrieve();
+    Call<ArrayList<Recipe>> recipe = recipeApi.getRecipe();
 
     recipe.enqueue(new Callback<ArrayList<Recipe>>()
     {
       @Override
       public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response)
       {
-        Integer statusCode = response.code();
-        Log.v("status code: ", statusCode.toString());
-
         ArrayList<Recipe> recipes = response.body();
 
         Bundle recipesBundle = new Bundle();
@@ -94,7 +91,6 @@ public class RecipeFragment extends Fragment
     bundle.putParcelable(SELECTED_RECIPE, recipesAdapter.getSelectedRecipe(i));
 
     Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
-//    BakingWidgetService.startActionUpdateRecipe(getActivity(), recipesAdapter.getSelectedRecipe(i));
     intent.putExtras(bundle);
     startActivity(intent);
   }

@@ -17,7 +17,6 @@ public class BakingWidgetProvider extends AppWidgetProvider
   static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                               int appWidgetId, Recipe recipe)
   {
-
     RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_widget);
     views.removeAllViews(R.id.ll_recipe_widget_ingredient_list);
     views.setTextViewText(R.id.recipe_widget_title, recipe.getName());

@@ -3,20 +3,21 @@
               xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/colorBackground"
               android:orientation="vertical">
 
   <include layout="@layout/toolbar"/>
 
   <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:gravity="center"
-            android:text="Choose your desired recipe:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorAccent"/>
+            android:text="@string/recipe_header"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorHeader"/>
 
   <fragment android:id="@+id/recipe_fragment_body_part"
             android:name="example.android.com.bakingapp.ui.RecipeFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></fragment>
+            android:layout_height="match_parent"/>
 
 </LinearLayout>

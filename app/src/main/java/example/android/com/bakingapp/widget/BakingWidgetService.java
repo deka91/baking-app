@@ -38,7 +38,7 @@ public class BakingWidgetService extends IntentService
       if(ACTION_RECIPE_UPDATE.equals(action) &&
         intent.getParcelableExtra(BUNDLE_RECIPE_WIDGET_DATA) != null)
       {
-        handleActionUpdateWidgets((Recipe) intent.getParcelableExtra(BUNDLE_RECIPE_WIDGET_DATA));
+        handleActionUpdateWidgets(intent.getParcelableExtra(BUNDLE_RECIPE_WIDGET_DATA));
       }
     }
   }

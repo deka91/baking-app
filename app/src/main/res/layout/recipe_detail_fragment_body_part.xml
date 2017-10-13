@@ -6,25 +6,41 @@
               android:orientation="vertical"
               android:padding="16dp">
 
+  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="Ingredients:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorAccent"/>
+
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:scrollIndicators="top|bottom"
+    android:background="@drawable/scrollview_border"
   >
 
     <TextView
       android:id="@+id/recipe_detail_text"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:padding="16dp"
     />
   </ScrollView>
+
+  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="Steps:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorAccent"/>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recipe_detail_recycler"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
   />
 
 

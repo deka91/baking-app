@@ -10,7 +10,7 @@ import retrofit2.http.GET;
  * Created by Deniz Kalem on 06.10.17.
  */
 
-public interface RecipeAPI
+public interface RecipeApi
 {
   @GET("baking.json")
   Call<ArrayList<Recipe>> getRecipe();

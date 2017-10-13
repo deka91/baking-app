@@ -14,6 +14,7 @@
     android:id="@+id/layout_recipe_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
     android:gravity="center_horizontal">
 
     <TextView
@@ -28,7 +29,7 @@
       android:id="@+id/iv_image"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_gravity="left"
+      android:layout_gravity="start"
       android:elevation="1dp"
       android:paddingRight="15dp"/>
 

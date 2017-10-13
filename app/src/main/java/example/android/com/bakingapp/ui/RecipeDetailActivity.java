@@ -1,7 +1,5 @@
 package example.android.com.bakingapp.ui;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,8 +14,8 @@ import example.android.com.bakingapp.R;
 import example.android.com.bakingapp.model.Recipe;
 
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
-import static example.android.com.bakingapp.util.MyConstants.STACK_RECIPE_DETAIL;
-import static example.android.com.bakingapp.util.MyConstants.STACK_RECIPE_STEP_DETAIL;
+import static example.android.com.bakingapp.util.MyConstants.RECIPE_DETAIL;
+import static example.android.com.bakingapp.util.MyConstants.RECIPE_STEP;
 
 /**
  * Created by Deniz Kalem on 06.10.17.
@@ -28,17 +26,6 @@ public class RecipeDetailActivity extends AppCompatActivity
   private Recipe recipe;
   private FragmentManager fragmentManager;
   private RecipeStepFragment recipeStepFragment;
-
-
-  private static final String BUNDLE_RECIPE_DATA =
-    "com.twisstosin.udacity_baking.recipe_data";
-
-  public static Intent newIntent(Context packageContext, Recipe recipe)
-  {
-    Intent intent = new Intent(packageContext, RecipeDetailActivity.class);
-    intent.putExtra(BUNDLE_RECIPE_DATA, recipe);
-    return intent;
-  }
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
@@ -61,7 +48,7 @@ public class RecipeDetailActivity extends AppCompatActivity
       final RecipeDetailFragment fragment = new RecipeDetailFragment();
       fragment.setArguments(bundle);
       fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment).addToBackStack(STACK_RECIPE_DETAIL)
+        .replace(R.id.fragment_container, fragment).addToBackStack(RECIPE_DETAIL)
         .commit();
 
       if(RecipeFragment.isTablet && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
@@ -70,7 +57,7 @@ public class RecipeDetailActivity extends AppCompatActivity
         bundle.putParcelable(SELECTED_RECIPE, recipe);
         fragment2.setArguments(bundle);
         fragmentManager.beginTransaction()
-          .replace(R.id.fragment_container2, fragment2).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+          .replace(R.id.fragment_container2, fragment2).addToBackStack(RECIPE_STEP)
           .commit();
       }
     } else
@@ -121,7 +108,7 @@ public class RecipeDetailActivity extends AppCompatActivity
       if(fragmentManager.getBackStackEntryCount() > 1)
       {
         //go back to "Recipe Detail" screen
-        fragmentManager.popBackStack(STACK_RECIPE_DETAIL, 0);
+        fragmentManager.popBackStack(RECIPE_DETAIL, 0);
       } else if(fragmentManager.getBackStackEntryCount() > 0)
       {
         //go back to "Recipe" screen
