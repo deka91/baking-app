@@ -2,7 +2,10 @@
 package example.android.com.bakingapp.ui;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,9 +14,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import example.android.com.bakingapp.R;
 import example.android.com.bakingapp.adapter.RecipeAdapter;
 import example.android.com.bakingapp.model.Recipe;
@@ -37,14 +43,15 @@ public class RecipeFragment extends Fragment
   public static boolean isTablet;
   private ArrayList<Recipe> recipes;
 
+  @BindView(R.id.recipe_recycler)
+  RecyclerView recyclerView;
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    RecyclerView recyclerView;
-
     View rootView = inflater.inflate(R.layout.recipe_fragment_body_part, container, false);
 
-    recyclerView = (RecyclerView) rootView.findViewById(R.id.recipe_recycler);
+    ButterKnife.bind(this, rootView);
     recipesAdapter = new RecipeAdapter(getActivity(), this::clickRecipe);
     recyclerView.setAdapter(recipesAdapter);
 
@@ -74,36 +81,40 @@ public class RecipeFragment extends Fragment
       RecipeApi recipeApi = RetrofitBuilder.getData();
       Call<ArrayList<Recipe>> recipe = recipeApi.getRecipe();
 
-      recipe.enqueue(new Callback<ArrayList<Recipe>>()
+      if(isNetworkAvailable())
       {
-        @Override
-        public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response)
+        recipe.enqueue(new Callback<ArrayList<Recipe>>()
         {
-          if(progressDialog.isShowing())
+          @Override
+          public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response)
           {
-            progressDialog.dismiss();
+            if(progressDialog.isShowing())
+            {
+              progressDialog.dismiss();
+            }
+
+            recipes = response.body();
+
+            Bundle recipesBundle = new Bundle();
+            recipesBundle.putParcelableArrayList(ALL_RECIPES, recipes);
+
+            recipesAdapter.setRecipes(recipes, getContext());
           }
 
-          recipes = response.body();
 
-          Bundle recipesBundle = new Bundle();
-          recipesBundle.putParcelableArrayList(ALL_RECIPES, recipes);
-
-          recipesAdapter.setRecipes(recipes, getContext());
-        }
-
-
-        @Override
-        public void onFailure(Call<ArrayList<Recipe>> call, Throwable t)
-        {
-          if(progressDialog.isShowing())
+          @Override
+          public void onFailure(Call<ArrayList<Recipe>> call, Throwable t)
           {
-            progressDialog.dismiss();
+            if(progressDialog.isShowing())
+            {
+              progressDialog.dismiss();
+            }
+
+            Toast.makeText(getActivity(), "An error has occured.", Toast.LENGTH_SHORT);
           }
-        }
-      });
+        });
+      }
     }
-
 
     return rootView;
   }
@@ -124,4 +135,14 @@ public class RecipeFragment extends Fragment
     super.onSaveInstanceState(outState);
     outState.putParcelableArrayList(ALL_RECIPES, recipes);
   }
+
+  public boolean isNetworkAvailable()
+  {
+    ConnectivityManager connectivityManager
+      = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+  }
+
+
 }

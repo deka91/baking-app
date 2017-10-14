@@ -50,7 +50,7 @@ public class RecipeDetailActivity extends AppCompatActivity
         .replace(R.id.fragment_container, fragment).addToBackStack(RECIPE_DETAIL)
         .commit();
 
-      if(RecipeFragment.isTablet && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+      if(RecipeFragment.isTablet)
       {
         RecipeStepFragment fragment2 = new RecipeStepFragment();
         bundle.putParcelable(SELECTED_RECIPE, recipe);
