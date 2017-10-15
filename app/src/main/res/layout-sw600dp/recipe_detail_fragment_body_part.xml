@@ -15,6 +15,7 @@
             android:textColor="@color/colorAccent"/>
 
   <ScrollView
+    android:id="@+id/sv_ingredients"
     android:layout_width="match_parent"
     android:layout_height="@dimen/scrollview_height_tablet"
     android:background="@drawable/scrollview_border"

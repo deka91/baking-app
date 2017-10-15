@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ import example.android.com.bakingapp.R;
 import example.android.com.bakingapp.model.Recipe;
 import example.android.com.bakingapp.model.Step;
 
+import static example.android.com.bakingapp.util.MyConstants.ALL_STEPS;
 import static example.android.com.bakingapp.util.MyConstants.RECIPE_STEP;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_STEP;
@@ -53,7 +55,8 @@ public class RecipeStepFragment extends Fragment
   private ArrayList<Step> steps;
   private int position;
   private long playerPosition;
-  String videoURL;
+  private String videoURL;
+  public static boolean videoIsPlaying;
 
   @Nullable
   @Override
@@ -65,12 +68,12 @@ public class RecipeStepFragment extends Fragment
     if(savedInstanceState != null)
     {
       step = savedInstanceState.getParcelable(SELECTED_STEP);
-      steps = savedInstanceState.getParcelableArrayList("steps");
+      steps = savedInstanceState.getParcelableArrayList(ALL_STEPS);
       playerPosition = savedInstanceState.getLong("player_position");
     } else
     {
       step = getArguments().getParcelable(SELECTED_STEP);
-      steps = getArguments().getParcelableArrayList("steps");
+      steps = getArguments().getParcelableArrayList(ALL_STEPS);
     }
 
     if(step == null)
@@ -104,6 +107,7 @@ public class RecipeStepFragment extends Fragment
     {
       simpleExoPlayer = null;
       simpleExoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(300, 300));
+      videoIsPlaying = false;
     }
 
     ImageButton back = (ImageButton) rootView.findViewById(R.id.ib_back);
@@ -170,6 +174,9 @@ public class RecipeStepFragment extends Fragment
     if(!TextUtils.isEmpty(videoURL))
     {
       initializePlayer(Uri.parse(videoURL));
+    } else
+    {
+      videoIsPlaying = false;
     }
   }
 
@@ -182,6 +189,15 @@ public class RecipeStepFragment extends Fragment
       LoadControl loadControl = new DefaultLoadControl();
       simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
       simpleExoPlayerView.setPlayer(simpleExoPlayer);
+      simpleExoPlayerView.setVisibility(View.VISIBLE);
+
+      if(!RecipeFragment.isTablet && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+      {
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+          WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+      }
+
       // Prepare the MediaSource.
       String userAgent = Util.getUserAgent(getContext(), "BakingApp");
       MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
@@ -190,9 +206,11 @@ public class RecipeStepFragment extends Fragment
       {
         simpleExoPlayer.seekTo(playerPosition);
       }
+
       simpleExoPlayer.prepare(mediaSource);
       simpleExoPlayer.setPlayWhenReady(true);
-      simpleExoPlayerView.setVisibility(View.VISIBLE);
+
+      videoIsPlaying = true;
     }
   }
 
@@ -201,6 +219,7 @@ public class RecipeStepFragment extends Fragment
   {
     super.onSaveInstanceState(currentState);
     currentState.putParcelable(SELECTED_STEP, step);
+    currentState.putParcelableArrayList(ALL_STEPS, steps);
     currentState.putLong("player_position", playerPosition);
   }
 
@@ -221,7 +240,7 @@ public class RecipeStepFragment extends Fragment
 
     Bundle bundle = new Bundle();
     bundle.putParcelable(SELECTED_STEP, steps.get(i));
-    bundle.putParcelableArrayList("steps", steps);
+    bundle.putParcelableArrayList(ALL_STEPS, steps);
     fragment.setArguments(bundle);
 
     if(RecipeFragment.isTablet && getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)

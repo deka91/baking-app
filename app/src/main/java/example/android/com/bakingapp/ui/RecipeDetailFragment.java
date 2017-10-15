@@ -21,6 +21,7 @@ import example.android.com.bakingapp.model.Ingredient;
 import example.android.com.bakingapp.model.Recipe;
 import example.android.com.bakingapp.widget.BakingWidgetService;
 
+import static example.android.com.bakingapp.util.MyConstants.ALL_STEPS;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
 import static example.android.com.bakingapp.util.MyConstants.SELECTED_STEP;
 import static example.android.com.bakingapp.util.MyConstants.RECIPE_STEP;
@@ -83,7 +84,7 @@ public class RecipeDetailFragment extends Fragment
 
     Bundle bundle = new Bundle();
     bundle.putParcelable(SELECTED_STEP, recipeDetailAdapter.getSelectedStep(i));
-    bundle.putParcelableArrayList("steps", (ArrayList) recipeDetailAdapter.getSteps());
+    bundle.putParcelableArrayList(ALL_STEPS, (ArrayList) recipeDetailAdapter.getSteps());
     fragment.setArguments(bundle);
 
     if(RecipeFragment.isTablet && getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)

@@ -2,44 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
               android:orientation="vertical"
               android:padding="@dimen/padding_large"
 >
 
-  <LinearLayout
+  <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+    android:id="@+id/playerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="@dimen/video_height"
+  />
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-      android:id="@+id/playerView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-    />
+  <ImageView
+    android:id="@+id/iv_thumb"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="left"
+  />
 
-    <ImageView
-      android:id="@+id/iv_thumb"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="left"
-      android:elevation="1dp"
-      android:paddingRight="@dimen/padding_large"/>
-
-    <TextView
-      android:id="@+id/recipe_step_detail_text"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="5dp"
-      android:textColor="@android:color/black"
-      android:textSize="@dimen/text_size"
-    />
-
-  </LinearLayout>
+  <TextView
+    android:id="@+id/recipe_step_detail_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_normal"
+    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+    android:textColor="@android:color/black"
+    android:textSize="@dimen/text_size"
+  />
 
   <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
   >
+
     <ImageButton
       android:id="@+id/ib_back"
       android:layout_width="wrap_content"

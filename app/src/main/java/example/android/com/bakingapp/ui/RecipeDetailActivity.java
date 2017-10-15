@@ -13,9 +13,9 @@ import butterknife.ButterKnife;
 import example.android.com.bakingapp.R;
 import example.android.com.bakingapp.model.Recipe;
 
-import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
 import static example.android.com.bakingapp.util.MyConstants.RECIPE_DETAIL;
 import static example.android.com.bakingapp.util.MyConstants.RECIPE_STEP;
+import static example.android.com.bakingapp.util.MyConstants.SELECTED_RECIPE;
 
 /**
  * Created by Deniz Kalem on 06.10.17.
@@ -50,7 +50,7 @@ public class RecipeDetailActivity extends AppCompatActivity
         .replace(R.id.fragment_container, fragment).addToBackStack(RECIPE_DETAIL)
         .commit();
 
-      if(RecipeFragment.isTablet)
+      if(RecipeFragment.isTablet && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
       {
         RecipeStepFragment fragment2 = new RecipeStepFragment();
         bundle.putParcelable(SELECTED_RECIPE, recipe);
@@ -69,7 +69,7 @@ public class RecipeDetailActivity extends AppCompatActivity
 
     recipeStepFragment = (RecipeStepFragment) fragmentManager.findFragmentByTag("RecipeStepFragment");
 
-    if(recipeStepFragment != null && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+    if(recipeStepFragment != null && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && RecipeStepFragment.videoIsPlaying)
     {
       getSupportActionBar().hide();
     } else
